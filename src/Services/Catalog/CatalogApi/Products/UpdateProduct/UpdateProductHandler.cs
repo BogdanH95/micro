@@ -1,7 +1,4 @@
-﻿using CatalogAPI.Products.CreateProduct;
-using Microsoft.Extensions.Logging;
-
-namespace CatalogAPI.Products.UpdateProduct
+﻿namespace CatalogAPI.Products.UpdateProduct
 {
     public record UpdateProductCommand(Guid Id, string Name, List<string> Categories, string Description, string ImageFile, decimal Price)
         : ICommand<UpdateProductResult>;
@@ -11,22 +8,18 @@ namespace CatalogAPI.Products.UpdateProduct
         public UpdateProductCommandValidator()
         {
             RuleFor(x => x.Id).NotEmpty().WithMessage("Id is required");
-            
             RuleFor(x => x.Name)
                 .NotEmpty().WithMessage("Name is required")
                 .Length(2,150).WithMessage("Name must be between 2 and 150 characters");
-            
             RuleFor(x => x.Price).GreaterThan(0).WithMessage("Price must be greater than 0");
         }
     }
 
-    internal class UpdateProductCommandHandler(IDocumentSession session, ILogger<UpdateProductCommandHandler> logger)
+    internal class UpdateProductCommandHandler(IDocumentSession session)
         : ICommandHandler<UpdateProductCommand, UpdateProductResult>
     {
         public async Task<UpdateProductResult> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
         {
-            logger.LogInformation("CreateProductCommandHandler.Handle called with {@Query}", command);
-
             var product = await session.LoadAsync<Product>(command.Id, cancellationToken)
                 ?? throw new ProductNotFoundException(command.Id);
 

@@ -14,7 +14,7 @@ namespace BuildingBlocks.Exceptions.Handlers
             logger.LogError("Error Message: {exceptionMessage}, Time of occurrence {time}",
                 exception.Message, DateTime.UtcNow);
 
-            (string Details, string Title, int StatusCode) details = exception switch
+            (string Details, string Title, int StatusCode) = exception switch
             {
                 InternalServerException =>
                 (
@@ -50,9 +50,9 @@ namespace BuildingBlocks.Exceptions.Handlers
 
             var problemDetail = new ProblemDetails
             {
-                Title = details.Title,
-                Detail = details.Details,
-                Status = details.StatusCode,
+                Title = Title,
+                Detail = Details,
+                Status = StatusCode,
                 Instance = context.Request.Path
             };
 
