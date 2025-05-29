@@ -10,3 +10,4 @@ global using Mapster;
 global using Marten;
 global using MediatR;
 global using CatalogAPI.Data;
+global using Marten.Pagination;
