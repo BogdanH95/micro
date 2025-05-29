@@ -3,6 +3,13 @@
 //publid record DeleteProductRequest(Guid Id);
 public record DeleteProductResponse(bool IsSuccess, string ErrorMessage);
 
+public class DeleteProductCommandValidator : AbstractValidator<DeleteProductCommand>
+{
+    public DeleteProductCommandValidator()
+    {
+        RuleFor(x => x.Id).NotEmpty().WithMessage("Product Id is required");
+    }
+}
 public class DeleteProductEndpoint : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
