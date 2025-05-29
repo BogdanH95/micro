@@ -28,7 +28,7 @@ namespace CatalogAPI.Products.UpdateProduct
             logger.LogInformation("CreateProductCommandHandler.Handle called with {@Query}", command);
 
             var product = await session.LoadAsync<Product>(command.Id, cancellationToken)
-                ?? throw new ProductNotFoundException();
+                ?? throw new ProductNotFoundException(command.Id);
 
             product.Name = command.Name;
             product.Categories = command.Categories;
