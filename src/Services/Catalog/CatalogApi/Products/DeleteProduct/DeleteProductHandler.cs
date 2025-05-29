@@ -1,7 +1,4 @@
-﻿using JasperFx.CodeGeneration.Frames;
-using Microsoft.Extensions.Logging;
-
-namespace CatalogAPI.Products.DeleteProduct
+﻿namespace CatalogAPI.Products.DeleteProduct
 {
     public record DeleteProductCommand(Guid Id) : ICommand<DeleteProductResult>;
     public record DeleteProductResult(bool IsSuccess, string? ErrorMessage = default);

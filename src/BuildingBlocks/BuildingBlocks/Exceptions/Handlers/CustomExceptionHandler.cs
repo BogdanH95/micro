@@ -58,7 +58,7 @@ namespace BuildingBlocks.Exceptions.Handlers
 
             problemDetail.Extensions.Add("traceId", context.TraceIdentifier);
 
-            if(exception is ValidationException validationException)
+            if (exception is ValidationException validationException)
             {
                 problemDetail.Extensions.Add("ValidationErrors", validationException.Errors);
             }

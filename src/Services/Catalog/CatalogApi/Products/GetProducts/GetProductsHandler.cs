@@ -1,7 +1,7 @@
 ﻿
 namespace CatalogAPI.Products.GetProducts
 {
-    public record GetProductsQuery(): IQuery<GetProductsResult>;
+    public record GetProductsQuery() : IQuery<GetProductsResult>;
     public record GetProductsResult(IEnumerable<Product> Products);
     internal class GetProductsQueryHandler(IDocumentSession session)
         : IQueryHandler<GetProductsQuery, GetProductsResult>

@@ -16,9 +16,9 @@ namespace BuildingBlocks.Behaviors
 
             var timer = new Stopwatch();
             timer.Start();
-            
+
             var response = await next(cancellationToken);
-            
+
             timer.Stop();
             var timeTaken = timer.Elapsed;
             if (timeTaken.TotalSeconds > 3d)
@@ -26,7 +26,7 @@ namespace BuildingBlocks.Behaviors
                     typeof(TRequest).Name, timeTaken.TotalSeconds);
 
             logger.LogInformation("[END] Handled {Request} with {Response}", typeof(TRequest).Name, typeof(TResponse).Name);
-            
+
             return response;
         }
     }
