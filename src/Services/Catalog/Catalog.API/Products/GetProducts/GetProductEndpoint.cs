@@ -1,16 +1,14 @@
 ﻿
-using Catalog.API.Models;
+namespace Catalog.API.Products.GetProducts;
 
-namespace Catalog.API.Products.GetProducts
+//Define Request and Response Records
+public record GetProductsRequest(int? PageNumber = 1, int? PageSize = 10);
+public record GetProductsResponse(IEnumerable<Product> Products);
+public class GetProductsEndpoint : ICarterModule
 {
-    //Define Request and Response Records
-    public record GetProductsRequest(int? PageNumber = 1, int? PageSize = 10);
-    public record GetProductsResponse(IEnumerable<Product> Products);
-    public class GetProductsEndpoint : ICarterModule
+    public void AddRoutes(IEndpointRouteBuilder app)
     {
-        public void AddRoutes(IEndpointRouteBuilder app)
-        {
-            app.MapGet("/products", async ([AsParameters] GetProductsRequest request,ISender sender) =>
+        app.MapGet("/products", async ([AsParameters] GetProductsRequest request,ISender sender) =>
             {
                 var query = request.Adapt<GetProductsQuery>();
 
@@ -25,6 +23,5 @@ namespace Catalog.API.Products.GetProducts
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .WithSummary("Get Products")
             .WithDescription("Get Products");
-        }
     }
 }

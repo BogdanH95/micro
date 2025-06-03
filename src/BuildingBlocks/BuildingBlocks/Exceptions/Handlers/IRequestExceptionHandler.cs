@@ -1,6 +1,5 @@
-﻿namespace BuildingBlocks.Exceptions.Handlers
+﻿namespace BuildingBlocks.Exceptions.Handlers;
+
+public interface IRequestExceptionHandler<T>
 {
-    public interface IRequestExceptionHandler<T>
-    {
-    }
 }

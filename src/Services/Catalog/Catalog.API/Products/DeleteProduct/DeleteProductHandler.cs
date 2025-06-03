@@ -1,23 +1,20 @@
-﻿using Catalog.API.Models;
+﻿namespace Catalog.API.Products.DeleteProduct;
 
-namespace Catalog.API.Products.DeleteProduct
+public record DeleteProductCommand(Guid Id) : ICommand<DeleteProductResult>;
+public record DeleteProductResult(bool IsSuccess, string? ErrorMessage = default);
+
+internal class DeleteProductCommandHandler(IDocumentSession session)
+    : ICommandHandler<DeleteProductCommand, DeleteProductResult>
 {
-    public record DeleteProductCommand(Guid Id) : ICommand<DeleteProductResult>;
-    public record DeleteProductResult(bool IsSuccess, string? ErrorMessage = default);
-
-    internal class DeleteProductCommandHandler(IDocumentSession session)
-        : ICommandHandler<DeleteProductCommand, DeleteProductResult>
+    public async Task<DeleteProductResult> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
     {
-        public async Task<DeleteProductResult> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
-        {
-            var product = await session.LoadAsync<Product>(command.Id, cancellationToken);
+        var product = await session.LoadAsync<Product>(command.Id, cancellationToken);
 
-            if (product is null) return new DeleteProductResult(false, "Product not found!");
+        if (product is null) return new DeleteProductResult(false, "Product not found!");
 
-            session.Delete(product);
-            await session.SaveChangesAsync(cancellationToken);
+        session.Delete(product);
+        await session.SaveChangesAsync(cancellationToken);
 
-            return new DeleteProductResult(true);
-        }
+        return new DeleteProductResult(true);
     }
 }
