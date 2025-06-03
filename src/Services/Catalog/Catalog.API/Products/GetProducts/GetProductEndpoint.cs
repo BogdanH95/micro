@@ -1,7 +1,7 @@
 ﻿
-using Microsoft.AspNetCore.Mvc;
+using Catalog.API.Models;
 
-namespace CatalogAPI.Products.GetProducts
+namespace Catalog.API.Products.GetProducts
 {
     //Define Request and Response Records
     public record GetProductsRequest(int? PageNumber = 1, int? PageSize = 10);

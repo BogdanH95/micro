@@ -1,4 +1,6 @@
-﻿namespace CatalogAPI.Products.GetProductByCategory
+﻿using Catalog.API.Models;
+
+namespace Catalog.API.Products.GetProductByCategory
 {
     public record GetProductsByCategoryQuery(string Category) : IQuery<GetProductsByCategoryResult>;
     public record GetProductsByCategoryResult(IEnumerable<Product> Products);

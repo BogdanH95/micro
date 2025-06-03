@@ -1,7 +1,8 @@
 ﻿
-using CatalogAPI.Products.GetProductById;
+using Catalog.API.Models;
+using Catalog.API.Products.GetProductById;
 
-namespace CatalogAPI.Products.GetProductByCategory
+namespace Catalog.API.Products.GetProductByCategory
 {
     //Define Request, Response
     public record GetProductsByCategoryResponse(IEnumerable<Product> Products);

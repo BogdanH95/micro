@@ -1,6 +1,7 @@
-﻿using Marten.Schema;
+﻿using Catalog.API.Models;
+using Marten.Schema;
 
-namespace CatalogAPI.Data
+namespace Catalog.API.Data
 {
     public class CatalogInitialData : IInitialData
     {
