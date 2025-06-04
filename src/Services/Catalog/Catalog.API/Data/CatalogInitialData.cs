@@ -8,7 +8,7 @@ public class CatalogInitialData : IInitialData
     {
         var session = store.LightweightSession();
 
-        if (await session.Query<Product>().AnyAsync())
+        if (await session.Query<Product>().AnyAsync(token: cancellation))
             return;
         //Marten UPSERT will cater for existing records
         session.Store(GetSeedData());

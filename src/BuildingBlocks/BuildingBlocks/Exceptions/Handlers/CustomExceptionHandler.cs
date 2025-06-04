@@ -14,7 +14,7 @@ public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger)
         logger.LogError("Error Message: {exceptionMessage}, Time of occurrence {time}",
             exception.Message, DateTime.UtcNow);
 
-        (string Details, string Title, int StatusCode) = exception switch
+        var (details, title, statusCode) = exception switch
         {
             InternalServerException =>
             (
@@ -50,9 +50,9 @@ public class CustomExceptionHandler(ILogger<CustomExceptionHandler> logger)
 
         var problemDetail = new ProblemDetails
         {
-            Title = Title,
-            Detail = Details,
-            Status = StatusCode,
+            Title = title,
+            Detail = details,
+            Status = statusCode,
             Instance = context.Request.Path
         };
 
