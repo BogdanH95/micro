@@ -18,8 +18,8 @@ public class StoreBasketHandler(IBasketRepository repository)
 {
     public async Task<StoreBasketResult> Handle(StoreBasketCommand command, CancellationToken cancellationToken)
     {
-        var cart = command.Cart;
-        await repository.StoreBasket(cart, cancellationToken);
+        //TODO: Communicate with Discount.GRPC and calculate the price after applying the discount.
+        await repository.StoreBasket(command.Cart, cancellationToken);
         return new StoreBasketResult(command.Cart.Username);
     }
 }

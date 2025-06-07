@@ -35,6 +35,9 @@ namespace Discount.GRPC.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ProductName")
+                        .IsUnique();
+
                     b.ToTable("Coupons");
 
                     b.HasData(
