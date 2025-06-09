@@ -20,8 +20,7 @@ public class CachedBasketRepository(IBasketRepository repository, IDistributedCa
     public async Task<ShoppingCart> StoreBasket(ShoppingCart basket, CancellationToken cancellation = default)
     {
         await repository.StoreBasket(basket, cancellation);
-        await cache.SetStringAsync(basket.Username, JsonSerializer.Serialize(basket), cancellation);
-        cache.SetStringAsync(basket.Username, JsonSerializer.Serialize(basket), new DistributedCacheEntryOptions()
+        await cache.SetStringAsync(basket.Username, JsonSerializer.Serialize(basket), new DistributedCacheEntryOptions()
         {
             AbsoluteExpiration = null,
             AbsoluteExpirationRelativeToNow = null,
