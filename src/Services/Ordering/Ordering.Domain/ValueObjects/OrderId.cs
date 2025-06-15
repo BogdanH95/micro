@@ -4,7 +4,7 @@ namespace Ordering.Domain.ValueObjects;
 
 public class OrderId
 {
-    public Guid Value { get; } = Guid.Empty;
+    public Guid Value { get; }
 
     private OrderId(Guid value) => Value = value;
 

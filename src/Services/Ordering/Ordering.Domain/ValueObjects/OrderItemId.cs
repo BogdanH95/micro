@@ -13,7 +13,6 @@ public record OrderItemId
         {
             throw new DomainException("OrderItemId cannot be empty");
         }
-
         return new OrderItemId(value);
     }
 }

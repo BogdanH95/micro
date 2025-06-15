@@ -2,7 +2,7 @@
 
 public enum OrderStatus
 {
-    Draft = 1,
+    Draft = 0,
     Pending = 1,
     Completed = 2,
     Canceled = 3

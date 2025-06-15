@@ -18,12 +18,13 @@ public class Order : Aggregate<OrderId>
         private set { }
     }
 
-    public Order Create(OrderId id, CustomerId customerId, OrderName orderName, Address shippingAddress,
+    public static Order Create(OrderId id, CustomerId customerId, OrderName orderName, Address shippingAddress,
         Address billingAddress,
         Payment payment, OrderStatus status)
     {
         var order = new Order
         {
+            Id = id,
             CustomerId = customerId,
             OrderName = orderName,
             ShippingAddress = shippingAddress,
