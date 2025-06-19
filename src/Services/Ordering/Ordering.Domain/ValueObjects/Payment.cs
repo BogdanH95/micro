@@ -1,20 +1,18 @@
-﻿using System.ComponentModel.Design.Serialization;
-
-namespace Ordering.Domain.ValueObjects;
+﻿namespace Ordering.Domain.ValueObjects;
 
 public record Payment
 {
-    public string? CardName { get; } = default!;
-    public string CardNumber { get; } = default!;
-    public string Expiration { get; } = default!;
-    public string Cvv { get; } = default!;
-    public int PaymentMethod { get; } = default!;
+    public string CardName { get; } = null!;
+    public string CardNumber { get; } = null!;
+    public string Expiration { get; } = null!;
+    public string Cvv { get; } = null!;
+    public int PaymentMethod { get; }
 
     protected Payment()
     {
     }
 
-    private Payment(string? cardName, string cardNumber, string expiration, string cvv, int paymentMethod)
+    private Payment(string cardName, string cardNumber, string expiration, string cvv, int paymentMethod)
     {
         CardName = cardName;
         CardNumber = cardNumber;

@@ -1,0 +1,16 @@
+﻿global using System;
+global using System.Collections.Generic;
+global using System.Threading;
+global using System.Threading.Tasks;
+global using BuildingBlocks.CQRS;
+global using FluentValidation; 
+global using Ordering.Application.Data;
+global using Ordering.Application.Dtos;
+global using Ordering.Domain.Models;
+global using Ordering.Domain.ValueObjects;
+global using Ordering.Application.Exceptions;
+global using MediatR;
+global using Microsoft.EntityFrameworkCore;
+global using Microsoft.Extensions.Logging;
+global using Ordering.Application.Extensions;
+global using Ordering.Domain.Events;
