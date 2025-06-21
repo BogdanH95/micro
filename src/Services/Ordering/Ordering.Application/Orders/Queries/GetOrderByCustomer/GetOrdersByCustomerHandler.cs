@@ -1,9 +1,9 @@
 ﻿namespace Ordering.Application.Orders.Queries.GetOrderByCustomer;
 
 public class GetOrdersByCustomerHandler(IApplicationDbContext context)
-    : IQueryHandler<GetOrdersByCustomerQuery, GetOrdersByCustomerQueryResult>
+    : IQueryHandler<GetOrdersByCustomerQuery, GetOrdersByCustomerResult>
 {
-    public async Task<GetOrdersByCustomerQueryResult> Handle(GetOrdersByCustomerQuery query, CancellationToken cancellationToken)
+    public async Task<GetOrdersByCustomerResult> Handle(GetOrdersByCustomerQuery query, CancellationToken cancellationToken)
     {
         var orders = await context.Orders
             .Include(x=> x.OrderItems)
@@ -11,6 +11,6 @@ public class GetOrdersByCustomerHandler(IApplicationDbContext context)
             .Where(x=> x.CustomerId.Value == query.CustomerId)
             .ToListAsync(cancellationToken);
 
-        return new GetOrdersByCustomerQueryResult(orders.ToOrderDtoList());
+        return new GetOrdersByCustomerResult(orders.ToOrderDtoList());
     }
 }

@@ -1,5 +1,5 @@
 ﻿namespace Ordering.Application.Orders.Queries.GetOrderByCustomer;
 
-public record GetOrdersByCustomerQuery(Guid CustomerId) : IQuery<GetOrdersByCustomerQueryResult>;
+public record GetOrdersByCustomerQuery(Guid CustomerId) : IQuery<GetOrdersByCustomerResult>;
 
-public record GetOrdersByCustomerQueryResult(IEnumerable<OrderDto> Orders);
+public record GetOrdersByCustomerResult(IEnumerable<OrderDto> Orders);
