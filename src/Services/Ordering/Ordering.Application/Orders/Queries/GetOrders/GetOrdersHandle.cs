@@ -13,10 +13,11 @@ public class GetOrdersHandle(IApplicationDbContext context)
         var totalCount = await context.Orders.CountAsync(cancellationToken);
 
         var orders = await context.Orders
-            .AsNoTracking()
+            .Include(o => o.OrderItems)
             .OrderBy(o => o.OrderName.Value)
             .Skip(pageIndex * pageSize)
             .Take(pageSize)
+            .AsNoTracking()
             .ToListAsync(cancellationToken);
 
 

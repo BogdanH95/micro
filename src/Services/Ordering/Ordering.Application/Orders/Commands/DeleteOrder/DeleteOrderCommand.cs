@@ -2,7 +2,7 @@
 
 public record DeleteOrderCommand(Guid OrderId) : ICommand<DeleteOrderResult>;
 
-public record DeleteOrderResult(bool isSuccess);
+public record DeleteOrderResult(bool IsSuccess);
 
 public class DeleteOrderCommandValidator : AbstractValidator<DeleteOrderCommand>
 {
