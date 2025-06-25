@@ -19,6 +19,7 @@ public static class DependencyInjection
             cfg.AddOpenBehavior(typeof(LoggingBehavior<,>));
         });
 
+        services.AddFeatureManagement(configuration.GetSection("MicroFeatureManagement"));
         services.AddMessageBroker(configuration, Assembly.GetExecutingAssembly());
 
         return services;
