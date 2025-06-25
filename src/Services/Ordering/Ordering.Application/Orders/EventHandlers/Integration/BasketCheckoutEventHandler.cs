@@ -38,8 +38,8 @@ public class BasketCheckoutEventHandler(ISender sender, ILogger<BasketCheckoutEv
             OrderItems:
             [
                 //TODO: finish this
-                new OrderItemDto(orderId, Guid.NewGuid(), 1, 500),
-                new OrderItemDto(orderId, Guid.NewGuid(), 1, 500)
+                new OrderItemDto(orderId, new Guid("5334c996-8457-4cf0-815c-ed2b77c4ff61"), 1, 500),
+                new OrderItemDto(orderId, new Guid("c67d6323-e8b1-4bdf-9a75-b0d0d2e7e914"), 1, 500)
             ]);
         return new CreateOrderCommand(orderDto);
     }

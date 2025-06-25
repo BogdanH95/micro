@@ -50,6 +50,7 @@ builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(
     };
     return handler;
 });
+
 //Asynchronous Communication Services
 builder.Services.AddMessageBroker(builder.Configuration);
 
