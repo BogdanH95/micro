@@ -1,3 +1,4 @@
+using BuildingBlocks.Messaging.MassTransit;
 using Discount.Grpc;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -49,6 +50,8 @@ builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(
     };
     return handler;
 });
+//Asynchronous Communication Services
+builder.Services.AddMessageBroker(builder.Configuration);
 
 //Cross-Cutting Services
 builder.Services.AddExceptionHandler<CustomExceptionHandler>();
@@ -58,7 +61,7 @@ builder.Services.AddHealthChecks()
 
 var app = builder.Build();
 
-//Configrue the HTTP request pipeline
+//Configure the HTTP request pipeline
 app.MapCarter();
 app.UseExceptionHandler(options => { });
 app.UseHealthChecks("/health", new HealthCheckOptions

@@ -1,0 +1,36 @@
+﻿using BuildingBlocks.Messaging.Events;
+using MassTransit;
+
+namespace Basket.API.Basket.CheckoutBasket;
+
+public record CheckoutBasketCommand(BasketCheckoutDto BasketCheckoutDto) 
+    : ICommand<CheckoutBasketResult>;
+
+public record CheckoutBasketResult(bool IsSuccess);
+
+public class CheckoutBasketCommandValidator : AbstractValidator<CheckoutBasketCommand>
+{
+    public CheckoutBasketCommandValidator()
+    {
+        RuleFor(x=> x.BasketCheckoutDto).NotNull().WithMessage("BasketCheckoutDto is required");
+        RuleFor(x=> x.BasketCheckoutDto.UserName).NotEmpty().WithMessage("UserName is required");
+    }
+}
+
+public class CheckoutBaskedCommandHandler
+    (IBasketRepository repository, IPublishEndpoint publishEndpoint)
+    : ICommandHandler<CheckoutBasketCommand, CheckoutBasketResult>
+{
+    public async Task<CheckoutBasketResult> Handle(CheckoutBasketCommand command, CancellationToken cancellationToken)
+    {
+        var basket = await repository.GetBasket(command.BasketCheckoutDto.UserName, cancellationToken);
+
+        var eventMessage = command.BasketCheckoutDto.Adapt<BasketCheckoutEvent>();
+        
+        await publishEndpoint.Publish(eventMessage, cancellationToken);
+
+        await repository.DeleteBasket(basket.Username, cancellationToken);
+        
+        return new CheckoutBasketResult(true);
+    }
+}
