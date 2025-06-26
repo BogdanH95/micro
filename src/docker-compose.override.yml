@@ -136,6 +136,7 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/ApiGateway.API.pfx
     depends_on:
       - catalog.api
       - basket.api
