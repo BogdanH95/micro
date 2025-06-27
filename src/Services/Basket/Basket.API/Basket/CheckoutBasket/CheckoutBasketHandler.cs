@@ -3,7 +3,7 @@ using MassTransit;
 
 namespace Basket.API.Basket.CheckoutBasket;
 
-public record CheckoutBasketCommand(BasketCheckoutDto BasketCheckoutDto) 
+public record CheckoutBasketCommand(BasketCheckoutDto BasketCheckout) 
     : ICommand<CheckoutBasketResult>;
 
 public record CheckoutBasketResult(bool IsSuccess);
@@ -12,8 +12,8 @@ public class CheckoutBasketCommandValidator : AbstractValidator<CheckoutBasketCo
 {
     public CheckoutBasketCommandValidator()
     {
-        RuleFor(x=> x.BasketCheckoutDto).NotNull().WithMessage("BasketCheckoutDto is required");
-        RuleFor(x=> x.BasketCheckoutDto.UserName).NotEmpty().WithMessage("UserName is required");
+        RuleFor(x=> x.BasketCheckout).NotNull().WithMessage("BasketCheckoutDto is required");
+        RuleFor(x=> x.BasketCheckout.UserName).NotEmpty().WithMessage("UserName is required");
     }
 }
 
@@ -23,9 +23,9 @@ public class CheckoutBaskedCommandHandler
 {
     public async Task<CheckoutBasketResult> Handle(CheckoutBasketCommand command, CancellationToken cancellationToken)
     {
-        var basket = await repository.GetBasket(command.BasketCheckoutDto.UserName, cancellationToken);
+        var basket = await repository.GetBasket(command.BasketCheckout.UserName, cancellationToken);
 
-        var eventMessage = command.BasketCheckoutDto.Adapt<BasketCheckoutEvent>();
+        var eventMessage = command.BasketCheckout.Adapt<BasketCheckoutEvent>();
         
         await publishEndpoint.Publish(eventMessage, cancellationToken);
 

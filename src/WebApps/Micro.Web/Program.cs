@@ -1,13 +1,14 @@
-var builder = WebApplication.CreateBuilder(args);
+using Micro.Web.Extensions;
 
+var builder = WebApplication.CreateBuilder(args);
+var apiGwUri = builder.Configuration["ApiSettings:GatewayAddress"]!;
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-builder.Services.AddRefitClient<ICatalogService>()
-    .ConfigureHttpClient(c =>
-    {
-        c.BaseAddress= new Uri(builder.Configuration["ApiSettings:GatewayAddress"]!);
-    });
+builder.Services
+    .AddRefitFor<ICatalogService>(apiGwUri)
+    .AddRefitFor<IBasketService>(apiGwUri)
+    .AddRefitFor<IOrderingService>(apiGwUri);
 
 var app = builder.Build();
 
