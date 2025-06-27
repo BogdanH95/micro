@@ -44,6 +44,12 @@ services:
     build:
       context: .
       dockerfile: ApiGatways/YarpApiGateway/Dockerfile
+      
+  micro.web:
+    image: micro.web
+    build:
+      context: .
+      dockerfile: WebApps/Micro.Web/Dockerfile
 
 volumes:
   postgres_catalog:
@@ -57,4 +63,6 @@ volumes:
 
 
 
+
+  
 
