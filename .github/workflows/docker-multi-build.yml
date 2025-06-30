@@ -31,7 +31,7 @@ jobs:
       - name: Build and Push Services/Basket
         uses: docker/build-push-action@v6.18.0
         with:
-          context: src\Services\Basket\Basket.API
+          context: src/Services/Basket/Basket.API
           push: true
           tags: ${{ secrets.ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/micro/services/basket:latest
       
