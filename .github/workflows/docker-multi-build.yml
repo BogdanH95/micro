@@ -31,14 +31,16 @@ jobs:
       - name: Build and Push Services/Basket
         uses: docker/build-push-action@v6.18.0
         with:
-          context: src/Services/Basket/Basket.API
+          context: .
+          file: src/Services/Basket/Basket.API/Dockerfile
           push: true
           tags: ${{ secrets.ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/micro/services/basket:latest
       
       - name: Build and Push Services/Catalog
         uses: docker/build-push-action@v6.18.0
         with:
-          context: src\Services\Catalog\Catalog.API
+          context: .
+          file: src/Services/Catalog/Catalog.API/Dockerfile
           push: true
           tags: ${{ secrets.ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/micro/services/catalog:latest
           
@@ -46,7 +48,8 @@ jobs:
       - name: Build and Push Services/Discount
         uses: docker/build-push-action@v6.18.0
         with:
-          context: src\Services\Discount\Discount.GRPC
+          context: .
+          file: src/Services/Discount/Discount.GRPC/Dockerfile
           push: true
           tags: ${{ secrets.ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/micro/services/discount:latest
           
@@ -54,7 +57,8 @@ jobs:
       - name: Build and Push Services/Ordering
         uses: docker/build-push-action@v6.18.0
         with:
-          context: src\Services\Ordering\Ordering.API
+          context: .
+          file: src/Services/Ordering/Ordering.API/Dockerfile
           push: true
           tags: ${{ secrets.ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/micro/services/ordering:latest
           
@@ -62,14 +66,16 @@ jobs:
       - name: Build and Push Web
         uses: docker/build-push-action@v6.18.0
         with:
-          context: src\WebApps\Micro.Web
+          context: .
+          file: src/WebApps/Micro.Web/Dockerfile
           push: true
           tags: ${{ secrets.ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/micro/web:latest
       
       - name: Build and Push Api GW
         uses: docker/build-push-action@v6.18.0
         with:
-          context: src\ApiGatways\YarpApiGateway
+          context: .
+          file: src/ApiGatways/YarpApiGateway/Dockerfile
           push: true
           tags: ${{ secrets.ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/micro/api-gw:latest
 
