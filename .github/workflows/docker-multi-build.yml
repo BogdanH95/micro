@@ -1,0 +1,86 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4.1.0
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+       
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+        
+      - name: List files for debugging
+        run: ls -R
+        
+      - name: Build and Push Services/Basket
+        uses: docker/build-push-action@v6.18.0
+        with:
+          context: ./src
+          file: src/Services/Basket/Basket.API/Dockerfile
+          push: true
+          tags: ${{ secrets.ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/micro/services/basket:latest
+      
+      - name: Build and Push Services/Catalog
+        uses: docker/build-push-action@v6.18.0
+        with:
+          context: ./src
+          file: src/Services/Catalog/Catalog.API/Dockerfile
+          push: true
+          tags: ${{ secrets.ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/micro/services/catalog:latest
+          
+      
+      - name: Build and Push Services/Discount
+        uses: docker/build-push-action@v6.18.0
+        with:
+          context: ./src
+          file: src/Services/Discount/Discount.GRPC/Dockerfile
+          push: true
+          tags: ${{ secrets.ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/micro/services/discount:latest
+          
+      
+      - name: Build and Push Services/Ordering
+        uses: docker/build-push-action@v6.18.0
+        with:
+          context: ./src
+          file: src/Services/Ordering/Ordering.API/Dockerfile
+          push: true
+          tags: ${{ secrets.ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/micro/services/ordering:latest
+          
+      
+      - name: Build and Push Web
+        uses: docker/build-push-action@v6.18.0
+        with:
+          context: ./src
+          file: src/WebApps/Micro.Web/Dockerfile
+          push: true
+          tags: ${{ secrets.ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/micro/web:latest
+      
+      - name: Build and Push Api GW
+        uses: docker/build-push-action@v6.18.0
+        with:
+          context: ./src
+          file: src/ApiGatways/YarpApiGateway/Dockerfile
+          push: true
+          tags: ${{ secrets.ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/micro/api-gw:latest
+
+
+          
