@@ -1,0 +1,25 @@
+﻿@page
+@model Micro.IdentityServer.Pages.Account.Login
+
+@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Login";
+}
+
+<h2>Login</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="ReturnUrl"/>
+
+    <div>
+        <label asp-for="Input.Email"></label>
+        <input asp-for="Input.Email"/>
+    </div>
+    <div>
+        <label asp-for="Input.Password"></label>
+        <input asp-for="Input.Password" type="password"/>
+    </div>
+
+    <button type="submit">Login</button>
+</form>
+

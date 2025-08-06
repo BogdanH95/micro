@@ -8,7 +8,7 @@ public static class Extensions
     {
         using var scope = app.ApplicationServices.CreateAsyncScope();
         using var dbContext = scope.ServiceProvider.GetRequiredService<DiscountContext>();
-        dbContext.Database.MigrateAsync();
+        dbContext.Database.MigrateAsync().Wait();
         
         return app; 
     }

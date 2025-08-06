@@ -1,0 +1,50 @@
+﻿@page
+@model Micro.IdentityServer.Pages.Account.Register
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h2>Register</h2>
+
+<form method="post">
+    <div asp-validation-summary="All"></div>
+
+    <div class="form-group">
+        <label asp-for="Input.Email"></label>
+        <input asp-for="Input.Email" type="email"/>
+        <span asp-validation-for="Input.Email"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Input.UserName"></label>
+        <input asp-for="Input.UserName" type="text"/>
+        <span asp-validation-for="Input.UserName"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Input.FirstName">First Name</label>
+        <input asp-for="Input.FirstName" type="text"/>
+        <span asp-validation-for="Input.FirstName"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Input.LastName">Last Name:</label>
+        <input asp-for="Input.LastName" type="text"/>
+        <span asp-validation-for="Input.LastName"></span>
+    </div>
+
+    <div class="form-group">
+        <lable asp-for="Input.Password">Password:</lable>
+        <input asp-for="Input.Password" type="password"/>
+        <span asp-validation-for="Input.Password"></span>
+    </div>
+
+    <div class="form-group">
+        <lable asp-for="Input.ConfirmPassword">Confirm Password:</lable>
+        <input asp-for="Input.ConfirmPassword" type="password"/>
+        <span asp-validation-for="Input.ConfirmPassword"></span>
+    </div>
+    
+    <button type="submit">Register</button>
+</form>

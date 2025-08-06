@@ -1,4 +1,16 @@
 services:
+  identity-db:
+    container_name: identity-db
+    environment:
+      - POSTGRES_USER=identity
+      - POSTGRES_PASSWORD=identityPassword
+      - POSTGRES_DB=Identity
+    restart: always
+    ports:
+      - "5434:5432"
+    volumes:
+      - postgres_identity:/var/lib/postgresql/data/
+  
   catalogdb:
     container_name: catalogdb
     environment:
@@ -22,6 +34,7 @@ services:
       - "5433:5432"
     volumes:
       - postgres_basket:/var/lib/postgresql/data/
+  
     
   distributed-cache:
     container_name: distributed-cache

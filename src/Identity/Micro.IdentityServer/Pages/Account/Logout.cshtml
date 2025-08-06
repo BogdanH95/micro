@@ -1,0 +1,18 @@
+﻿@page
+@model Micro.IdentityServer.Pages.Account.Logout
+
+@{
+    Layout = "/Pages/Shared/_Layout.cshtml";
+    ViewData["Title"] = "LogOut";
+}
+
+<form method="post" id="logoutForm">
+    <p>Logging out..</p>
+</form>
+
+@section Scripts
+{
+    <script>
+        document.getElementById("logoutForm").submit();
+    </script>
+}

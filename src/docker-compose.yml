@@ -1,5 +1,8 @@
 services:
-
+  
+  identity-db:
+    image: postgres
+    
   catalogdb:
     image: postgres
     
@@ -54,6 +57,7 @@ services:
 volumes:
   postgres_catalog:
   postgres_basket:  
+  postgres_identity:
 
 
 
