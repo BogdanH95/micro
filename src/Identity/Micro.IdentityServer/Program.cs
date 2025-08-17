@@ -1,9 +1,11 @@
+//TODO Refactor this section
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder
-    .AddDbContext()
-    .AddIdentityServices();
+    .AddDbContextWithOpenIddict()
+    .AddIdentityServices()
+    .AddPolicies();
 
 builder.Services.AddCors(options =>
 {
@@ -16,6 +18,7 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
 builder.Services.AddRazorPages();
 
 //Register services 
@@ -39,7 +42,13 @@ else
     app.UseHsts();
 }
 
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler("/Error");
+    app.UseHsts(); // Default is 30 days
+}
 app.UseHttpsRedirection();
+
 app.UseForwardedHeaders();
 
 app.UseRouting();
@@ -54,6 +63,7 @@ app.MapRazorPages()
 app.MapControllers();
 app.MapDefaultControllerRoute();
 
-app.InitialiseDatabaseAsync();
+await app.SeedData();
+
 
 app.Run();

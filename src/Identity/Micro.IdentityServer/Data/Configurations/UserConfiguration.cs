@@ -17,6 +17,9 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(x => x.LastName).IsRequired()
             .HasMaxLength(128);
         builder.Property(x => x.PhoneNumber).HasMaxLength(15);
+        builder.Property(x => x.AccessType)
+            .HasConversion<string>()
+            .HasMaxLength(20);
         
         builder.HasOne<Role>(x => x.Role)
             .WithMany()

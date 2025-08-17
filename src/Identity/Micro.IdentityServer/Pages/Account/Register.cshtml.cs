@@ -1,4 +1,5 @@
-﻿using Micro.IdentityServer.ViewModels.Account;
+﻿using Micro.IdentityServer.Data.Entities.Enums;
+using Micro.IdentityServer.ViewModels.Account;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -21,7 +22,7 @@ public class Register(IAccountService accountService)
         if (!ModelState.IsValid)
             return Page();
 
-        var result = await accountService.RegisterUserAsync(Input);
+        var result = await accountService.RegisterUserAsync(Input, AccessType.Premium);
 
         if (result.Succeeded)
             return RedirectToPage("Login", new { ReturnUrl = returnUrl });

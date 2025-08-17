@@ -2,7 +2,7 @@
 
 public static class DatabaseExtensions
 {
-    public static WebApplicationBuilder AddDbContext(this WebApplicationBuilder builder)
+    public static WebApplicationBuilder AddDbContextWithOpenIddict(this WebApplicationBuilder builder)
     {
         var connectionString = builder.Configuration.GetConnectionString("Database") ??
                                throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
