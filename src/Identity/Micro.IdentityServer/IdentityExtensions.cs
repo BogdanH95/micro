@@ -1,4 +1,5 @@
 ﻿using Micro.IdentityServer.Services.Identity;
+using Microsoft.IdentityModel.Tokens;
 using OpenIddict.Abstractions;
 using static OpenIddict.Abstractions.OpenIddictConstants;
 
@@ -88,11 +89,12 @@ public static class IdentityExtensions
         // SPA (public client, PKCE, no secret)
         await EnsureClientAsync(new OpenIddictApplicationDescriptor
             {
-                ClientId = "micro-web",
-                DisplayName = "Micro Web",
+                ClientId = "micro",
+                DisplayName = "Micro",
                 RedirectUris =
                 {
                     new Uri("https://localhost:5055/callback"),
+                    new Uri("https://oauth.pstmn.io/v1/callback"),
                     new Uri("https://localhost:6065/callback")
                 },
                 Permissions =
@@ -212,9 +214,17 @@ public static class IdentityExtensions
                     Scopes.Roles,
                     "api");
 
+                // Register the encryption credentials. This sample uses a symmetric
+                // encryption key that is shared between the server and the Api2 sample
+                // (that performs local token validation instead of using introspection).
+                //
+                // Note: in a real world application, this encryption key should be
+                // stored in a safe place (e.g in Azure KeyVault, stored as a secret).
+                options.AddEncryptionKey(new SymmetricSecurityKey(
+                    Convert.FromBase64String("DRjd/GnduI3Efzen9V9BvbNUfc/VKgXltV7Kbk9sMkY=")));
+                
                 // Register the signing and encryption credentials.
-                options.AddDevelopmentEncryptionCertificate()
-                    .AddDevelopmentSigningCertificate();
+                options.AddDevelopmentSigningCertificate();
 
                 // Register the ASP.NET Core host and configure the ASP.NET Core options.
                 options.UseAspNetCore()
