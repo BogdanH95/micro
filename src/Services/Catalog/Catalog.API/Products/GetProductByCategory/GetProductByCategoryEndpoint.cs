@@ -14,6 +14,7 @@ public class GetProductByCategoryEndpoint : ICarterModule
                 var response = result.Adapt<GetProductsByCategoryResponse>();
                 return Results.Ok(response);
             })
+            .RequireAuthorization()
             .WithName("GetProductByCategory")
             .Produces<GetProductByIdResponse>()
             .ProducesProblem(StatusCodes.Status400BadRequest)

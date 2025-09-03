@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Micro.IdentityServer", "Ide
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmailSender", "EmailSender\EmailSender.csproj", "{7C2C7ACF-84F4-4CEA-BDE4-E5283AC90B7D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BuildingBlocks.Identity", "BuildingBlocks\BuildingBlocks.Identity\BuildingBlocks.Identity.csproj", "{E82E2E7A-1259-4A7A-86E3-5636BFBB4ABA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,10 @@ Global
 		{7C2C7ACF-84F4-4CEA-BDE4-E5283AC90B7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C2C7ACF-84F4-4CEA-BDE4-E5283AC90B7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C2C7ACF-84F4-4CEA-BDE4-E5283AC90B7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E82E2E7A-1259-4A7A-86E3-5636BFBB4ABA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E82E2E7A-1259-4A7A-86E3-5636BFBB4ABA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E82E2E7A-1259-4A7A-86E3-5636BFBB4ABA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E82E2E7A-1259-4A7A-86E3-5636BFBB4ABA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -133,6 +139,7 @@ Global
 		{B26CF37F-228A-4FA0-A642-BF003EB78628} = {C07774A5-AD82-4682-9093-44E7D1FCD55B}
 		{67D90B1E-01A9-4942-BFEC-09B0FBAFB0CD} = {11CD0888-CE21-4189-98CF-220E4DF5AA04}
 		{7C2C7ACF-84F4-4CEA-BDE4-E5283AC90B7D} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{E82E2E7A-1259-4A7A-86E3-5636BFBB4ABA} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F5810AE0-B9DE-400E-9359-C7456AC50F58}

@@ -1,14 +1,28 @@
+using BuildingBlocks.Identity;
 using Micro.Web.Extensions;
+using Micro.Web.Refit;
 
 var builder = WebApplication.CreateBuilder(args);
 var apiGwUri = builder.Configuration["ApiSettings:GatewayAddress"]!;
 // Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddClientIdentityValidation(builder.Configuration);
+builder.Services.AddRazorPages(options =>
+{
+    options.Conventions.AuthorizeFolder("/");
+});
 
-builder.Services
-    .AddRefitFor<ICatalogService>(apiGwUri)
-    .AddRefitFor<IBasketService>(apiGwUri)
-    .AddRefitFor<IOrderingService>(apiGwUri);
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddTransient<AccessTokenHandler>();
+
+builder.Services.AddRefitClient<ICatalogService>()
+    .ConfigureHttpClient(c => c.BaseAddress = new Uri(apiGwUri))
+    .AddHttpMessageHandler<AccessTokenHandler>();
+builder.Services.AddRefitClient<IBasketService>()
+    .ConfigureHttpClient(c => c.BaseAddress = new Uri(apiGwUri))
+    .AddHttpMessageHandler<AccessTokenHandler>();
+builder.Services.AddRefitClient<IOrderingService>()
+    .ConfigureHttpClient(c => c.BaseAddress = new Uri(apiGwUri))
+    .AddHttpMessageHandler<AccessTokenHandler>();
 
 var app = builder.Build();
 
@@ -24,6 +38,7 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();

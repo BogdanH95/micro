@@ -68,8 +68,11 @@ services:
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
       - ConnectionStrings__Database=Server=catalogdb;Port=5432;Database=CatalogDb;User Id=postgres;Password=postgres;Include Error Detail=true
+      - Identity__Key=DRjd/GnduI3Efzen9V9BvbNUfc/VKgXltV7Kbk9sMkY=
+      - Identity__Origins=https://micro.identityserver:6067/
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/Catalog.API.pfx
     depends_on:
+      - micro.identityserver
       - catalogdb
     ports:
       - "6000:8080"
@@ -162,12 +165,27 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+  
+  micro.identityserver:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__Database=Server=identity-db;Port=5432;Database=Identity;User Id=identity;Password=identityPassword;Include Error Detail=true
+
+    depends_on:
+      - identity-db
+    ports:
+      - "6007:8080"
+      - "6067:8081"
+  
   micro.web:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
       - ApiSettings__GatewayAddress=http://yarpapigateway:8080
+      - Identity__Key=DRjd/GnduI3Efzen9V9BvbNUfc/VKgXltV7Kbk9sMkY=
+      - Identity__Origins=https://micro.identityserver:6067/
+      - Identity__ClientId=micro
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/Micro.Web.pfx
     depends_on:
       - yarpapigateway

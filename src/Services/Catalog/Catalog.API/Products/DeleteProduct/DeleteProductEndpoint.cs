@@ -24,6 +24,7 @@ public class DeleteProductEndpoint : ICarterModule
             else
                 return Results.NotFound(new { response.ErrorMessage });
         })
+        .RequireAuthorization()
             .WithName("DeleteProduct")
             .Produces<DeleteProductResponse>(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status400BadRequest)

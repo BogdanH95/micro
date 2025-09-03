@@ -1,13 +1,14 @@
-﻿namespace Micro.Web.Models.Catalog;
+﻿// ReSharper disable ClassNeverInstantiated.Global
+namespace Micro.Web.Models.Catalog;
 
 public class ProductModel
 {
-    public Guid Id { get; set; }
-    public string Name { get; set; } = string.Empty;
-    public List<string> Categories { get; set; } = new();
-    public string Description { get; set; } = string.Empty;
-    public string ImageFile { get; set; } = string.Empty;
-    public decimal Price { get; set; } 
+    public Guid Id { get; init; }
+    public string Name { get; init; } = string.Empty;
+    public List<string> Categories { get; init; } = [];
+    public string Description { get; init; } = string.Empty;
+    public string ImageFile { get; init; } = string.Empty;
+    public decimal Price { get; init; } 
 }
 
 //wrapper classes

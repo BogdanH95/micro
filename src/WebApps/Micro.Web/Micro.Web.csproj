@@ -82,4 +82,8 @@
       <_ContentIncludedByDefault Remove="wwwroot\lib\jquery\LICENSE.txt" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\BuildingBlocks\BuildingBlocks.Identity\BuildingBlocks.Identity.csproj" />
+    </ItemGroup>
+
 </Project>

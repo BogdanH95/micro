@@ -1,7 +1,9 @@
-//TODO Refactor this section
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+//TODO Refactor this section, looks like a bad ideea
+//to add extension methods to the builder
 builder
     .AddDbContextWithOpenIddict()
     .AddIdentityServices()

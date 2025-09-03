@@ -47,6 +47,12 @@ services:
     build:
       context: .
       dockerfile: ApiGatways/YarpApiGateway/Dockerfile
+  
+  micro.identityserver:
+    image: micro.identityserver
+    build:
+      context: .
+      dockerfile: Identity/Micro.IdentityServer/Dockerfile
       
   micro.web:
     image: micro.web
@@ -58,15 +64,4 @@ volumes:
   postgres_catalog:
   postgres_basket:  
   postgres_identity:
-
-
-
-
-
-
-
-
-
-
-  
 

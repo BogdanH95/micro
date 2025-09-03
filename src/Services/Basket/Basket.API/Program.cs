@@ -1,3 +1,4 @@
+using BuildingBlocks.Identity;
 using BuildingBlocks.Messaging.MassTransit;
 using Discount.Grpc;
 using HealthChecks.UI.Client;
@@ -59,6 +60,7 @@ builder.Services.AddExceptionHandler<CustomExceptionHandler>();
 builder.Services.AddHealthChecks()
     .AddNpgSql(dbConn)
     .AddRedis(redisConn);
+builder.Services.AddIdentityValidation(builder.Configuration);
 
 var app = builder.Build();
 

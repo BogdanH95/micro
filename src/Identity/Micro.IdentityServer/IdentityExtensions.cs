@@ -94,6 +94,7 @@ public static class IdentityExtensions
                 RedirectUris =
                 {
                     new Uri("https://localhost:5055/callback"),
+                    new Uri("https://localhost:5055/signin-oidc"),
                     new Uri("https://oauth.pstmn.io/v1/callback"),
                     new Uri("https://localhost:6065/callback")
                 },
