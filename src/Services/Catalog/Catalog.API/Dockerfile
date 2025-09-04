@@ -9,10 +9,11 @@ EXPOSE 8081
 
 
 # This stage is used to build the service project
-FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["Services/Catalog/Catalog.API/Catalog.API.csproj", "Services/Catalog/Catalog.API/"]
+COPY ["BuildingBlocks/BuildingBlocks.Identity/BuildingBlocks.Identity.csproj", "BuildingBlocks/BuildingBlocks.Identity/"]
 COPY ["BuildingBlocks/BuildingBlocks/BuildingBlocks.csproj", "BuildingBlocks/BuildingBlocks/"]
 RUN dotnet restore "./Services/Catalog/Catalog.API/Catalog.API.csproj"
 COPY . .
