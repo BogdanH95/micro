@@ -1,4 +1,5 @@
-﻿using Micro.IdentityServer.Services.Identity;
+﻿using System.Security.Cryptography.X509Certificates;
+using Micro.IdentityServer.Services.Identity;
 using Microsoft.IdentityModel.Tokens;
 using OpenIddict.Abstractions;
 using static OpenIddict.Abstractions.OpenIddictConstants;
@@ -184,6 +185,9 @@ public static class IdentityExtensions
 
     private static WebApplicationBuilder AddOpenIddict(this WebApplicationBuilder builder)
     {
+        var certFile = File.ReadAllBytes(builder.Configuration["Certificate:Path"]!);
+        var cert = X509CertificateLoader.LoadCertificate(certFile);
+        
         builder.Services.AddOpenIddict()
             .AddCore(options =>
             {
@@ -215,17 +219,17 @@ public static class IdentityExtensions
                     Scopes.Roles,
                     "api");
 
+                options.SetIssuer(new Uri("https://micro.identityserver:8081"));
                 // Register the encryption credentials. This sample uses a symmetric
                 // encryption key that is shared between the server and the Api2 sample
                 // (that performs local token validation instead of using introspection).
                 //
                 // Note: in a real world application, this encryption key should be
                 // stored in a safe place (e.g in Azure KeyVault, stored as a secret).
-                options.AddEncryptionKey(new SymmetricSecurityKey(
-                    Convert.FromBase64String("DRjd/GnduI3Efzen9V9BvbNUfc/VKgXltV7Kbk9sMkY=")));
+                options.AddEncryptionCertificate(cert); 
                 
                 // Register the signing and encryption credentials.
-                options.AddDevelopmentSigningCertificate();
+                options.AddSigningCertificate(cert);
 
                 // Register the ASP.NET Core host and configure the ASP.NET Core options.
                 options.UseAspNetCore()

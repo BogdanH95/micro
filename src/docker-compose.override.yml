@@ -61,6 +61,7 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+      
         
   catalog.api:
     environment:
@@ -69,7 +70,7 @@ services:
       - ASPNETCORE_HTTPS_PORTS=8081
       - ConnectionStrings__Database=Server=catalogdb;Port=5432;Database=CatalogDb;User Id=postgres;Password=postgres;Include Error Detail=true
       - Identity__Key=DRjd/GnduI3Efzen9V9BvbNUfc/VKgXltV7Kbk9sMkY=
-      - Identity__Origins=https://micro.identityserver:6067/
+      - Identity__Origins=https://micro.identityserver:8081/
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/Catalog.API.pfx
     depends_on:
       - micro.identityserver
@@ -82,6 +83,8 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    secrets:
+      - identityserver_cert_pub
         
   basket.api:
     environment:
@@ -108,6 +111,8 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    secrets:
+      - identityserver_cert_pub
         
   discount.grpc:
     environment:
@@ -124,6 +129,8 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    secrets:
+      - identityserver_cert_pub
   
   ordering.api:
     environment:
@@ -146,6 +153,8 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    secrets:
+      - identityserver_cert_pub
   
   yarpapigateway:
     environment:
@@ -165,26 +174,37 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    secrets:
+      - identityserver_cert_pub
   
   micro.identityserver:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
       - ConnectionStrings__Database=Server=identity-db;Port=5432;Database=Identity;User Id=identity;Password=identityPassword;Include Error Detail=true
-
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/Identity.pfx
     depends_on:
       - identity-db
     ports:
       - "6007:8080"
       - "6067:8081"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    secrets:
+      - identityserver_cert
   
   micro.web:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTP_PdockerORTS=8080
       - ASPNETCORE_HTTPS_PORTS=8081
       - ApiSettings__GatewayAddress=http://yarpapigateway:8080
       - Identity__Key=DRjd/GnduI3Efzen9V9BvbNUfc/VKgXltV7Kbk9sMkY=
-      - Identity__Origins=https://micro.identityserver:6067/
+      - Identity__Origins=https://micro.identityserver:8081/
       - Identity__ClientId=micro
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/home/app/.aspnet/https/Micro.Web.pfx
     depends_on:
@@ -197,6 +217,8 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+    secrets:
+      - identityserver_cert_pub
     
     
     

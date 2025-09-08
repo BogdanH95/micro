@@ -49,6 +49,7 @@ services:
       dockerfile: ApiGatways/YarpApiGateway/Dockerfile
   
   micro.identityserver:
+    container_name: micro.identityserver
     image: micro.identityserver
     build:
       context: .
@@ -64,4 +65,10 @@ volumes:
   postgres_catalog:
   postgres_basket:  
   postgres_identity:
+    
+secrets:
+  identityserver_cert:
+    file: ./certs/cert.pfx
+  identityserver_cert_pub:
+    file: ./certs/cert.crt
 
