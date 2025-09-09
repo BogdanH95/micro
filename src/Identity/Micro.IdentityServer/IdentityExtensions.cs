@@ -224,6 +224,7 @@ public static class IdentityExtensions
                 options.AddEncryptionKey(new SymmetricSecurityKey(
                     Convert.FromBase64String("DRjd/GnduI3Efzen9V9BvbNUfc/VKgXltV7Kbk9sMkY=")));
                 
+                options.SetIssuer(new Uri(builder.Configuration["IssuerUri"]!));
                 // Register the signing and encryption credentials.
                 options.AddDevelopmentSigningCertificate();
 

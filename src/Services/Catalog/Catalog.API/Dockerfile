@@ -7,6 +7,12 @@ WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
+USER root
+COPY /certs/identityserver.crt /usr/local/share/ca-certificates/identityserver.crt
+RUN update-ca-certificates
+RUN apt-get -y update 
+RUN apt-get -y install curl
+USER $APP_UID
 
 # This stage is used to build the service project
 FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
